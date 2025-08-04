@@ -14,8 +14,13 @@ const server = http.createServer(app);
 connectDB();
 
 // Middleware
+// app.use(cors({
+  // origin: process.env.CLIENT_URL || "https://trello-my-clone-client.vercel.app",
+  // origin: [ 'http://localhost:5173', "https://trello-my-clone-client.vercel.app" ],
+  // credentials: true,
+// }));
 app.use(cors({
-  origin: process.env.CLIENT_URL || "http://localhost:3000",
+  origin: "https://trello-my-clone-client.vercel.app", // ✅ Add your actual frontend domain here
   credentials: true,
 }));
 app.use(express.json()); // For parsing application/json
@@ -23,7 +28,8 @@ app.use(express.json()); // For parsing application/json
 // Attach Socket.IO
 const io = new SocketIO(server, {
   cors: {
-    origin: "http://localhost:3000",
+    // origin: "http://localhost:3000",
+    origin: "https://trello-my-clone-client.vercel.app", // ✅ Add your actual frontend domain here
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE"],
   },
